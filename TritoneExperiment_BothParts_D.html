@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <title>Experiment</title>
+        <script src="jspsych-6.0.5/jspsych.js"></script>
+        <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
+        <script src="jspsych-6.0.5/plugins/jspsych-html-button-response.js"></script>
+        <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
+        <script src="jspsych-6.0.5/plugins/jspsych-audio-keyboard-response.js"></script>
+        <script src="jspsych-6.0.5/plugins/jspsych-fullscreen.js"></script>
+        <script src="jspsych-6.0.5/plugins/jspsych-video.js"></script>
+        <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+    </head>
+
+    <body></body>
+	<script>
+
+	    /* create timeline */
+	    var timeline = [];
+
+	    /* define welcome message trial */
+	    var welcome = {
+	      type: "html-keyboard-response",
+	      stimulus: "Welcome to the experiment!" + "<br><br><br>(To continue: Press SPACE)" + "<br>(To abort: Close this window)"
+	      	    };
+		timeline.push(welcome);
+
+	    /* Consent form */
+        var consent = {
+            type: "html-keyboard-response",
+            stimulus: "<p>INFORMED CONSENT TO PARTICIPATE IN A RESEARCH PROJECT: FACTORS INFLUENCING AUDITORY PERCEPTION</p><br>A research project on auditory perception is being conducted by Dr. Laura Cacciamani in the Department of Psychology and Child Development at Cal Poly, San Luis Obispo. The purpose of the study is to understand the factors that can influence one’s perception of ambiguous musical patterns. <br><br>In this study, you will be asked to listen to various musical notes and make simple responses about what you hear. Afterwards, you will be given a short questionnaire regarding your experience during the experiment. Your participation will take up to approximately 30 minutes. Please be aware that you are not required to participate in this research, you may omit any items you prefer not to answer on the questionnaire, and you may discontinue your participation at any time. <br><br>There are no risks anticipated with your participation; however, if you should experience any psychological discomfort, please be aware that you may discontinue the experiment, and contact Counseling Services at (805) 756-2511 for assistance, if necessary. <br> Your confidentiality will be protected by de-identifying all data, which means that your name will not be associated with your performance on the task or responses on the questionnaire. Potential benefits associated with the study include contributing to scientific research on factors that can influence auditory perception under ambiguous conditions. As an incentive for participation, you may earn 1 research participation credit through the online SONA system, or extra credit for a course (a minimal amount pre-determined by your instructor); if you do not complete the experiment, you may not receive this credit. If you signed up for this study for extra credit and no longer choose to participate, you will be offered the opportunity to earn an equal amount of extra credit through your instructor.<br><br> If you have questions regarding this study or would like to be informed of the results when the study is completed, please feel free to contact Dr. Laura Cacciamani at Lcacciam@calpoly.edu. If you have concerns regarding the manner in which the study is conducted, you may contact Dr. Michael Black, Chair of the Cal Poly Institutional Review Board, at (805) 756-2894, mblack@calpoly.edu, or Ms. Debbie Hart, Compliance Officer, at (805) 756-1508, dahart@calpoly.edu.<br><br> If you agree to voluntarily participate in this research project as described, please indicate your agreement by pressing SPACE to continue. Thank you for your participation in this research. <br><br>",
+            choices: ' '
+        };
+        timeline.push(consent);
+		
+	 /* define instructions trial */
+	    var instructions = {
+            timeline: [
+            {
+                   type: 'html-keyboard-response',
+                   stimulus: "<p>INSTRUCTIONS:</p>" + "<p>For this experiment, please make sure that you are in a quiet, distraction-free space where you can focus for the next 10 minutes. This study should be done on a laptop or desktop computer; if you are using a smartphone or small tablet, please close this window, and re-open on a computer. <br><br> This study involves an auditory component, so please take a moment to make sure your volume is up. If you have headphones available to you, please put them on now. <br><br> (Press SPACE to continue reading instructions) </p> "
+            },
+            {
+                   type: 'html-keyboard-response',
+                   stimulus: "<p>INSTRUCTIONS:</p>" + "<br><p>In this experiment, you'll hear two consecutive musical tones.</p> " +
+                   "<p>The tones are designed to sound ambiguous, like an illusion. The tones can either be heard as ascending (from low to high) or descending (from high to low) in pitch.</p> " +
+                    "<p>Press SPACE to hear an example...</p> "
+            },
+            {
+                   type: 'video',
+                   sources: ['stim/A-D_ascending.mp4'],
+                   autoplay: true,
+                   height: 1,
+                   width: 1,
+                   prompt: "<p>(listen)</p>"
+            },
+                       {
+                       type: 'html-keyboard-response',
+                       stimulus: "<p>Did you hear those two notes? (If not, please check your volume again before continuing.) <br>You may have heard the two notes as ascending or descending. Neither answer is correct; people hear it different ways, that's why it's an illusion.</p>" + "<br> (Press SPACE to continue reading instructions)"
+                       },
+                       {
+                       type: 'html-keyboard-response',
+                       stimulus: "Each trial will begin with a fixation cross in the middle of the screen that looks like this:" +
+                       "<p>+</p>" +
+                       "<p>When you see this cross, press SPACE whenever you are ready to begin the trial.</p>" + "(Press SPACE to continue reading instructions)"
+                       },
+                       {
+                       type: 'html-keyboard-response',
+                       stimulus: "After the fixation cross, you'll see some flickering blobs on the screen. Then, you'll hear two tones like the ones you just heard." +
+                       "<br><p>If you heard the tones as <strong>ascending</strong>, press J </p> " +
+                       "<p>If you heard the tones as <strong>descending</strong>, press F </p> " +
+                       "<p>Make sure to respond based on what you <strong>hear.</strong></p> " +
+                       "<p>Please rest your index fingers on these keys (with your thumbs on the space bar) for the duration of the experiment to make it easy to respond.</p>" +
+                       "<br><p>Remember, this is an auditory illusion, so there are no right or wrong answers. </p>" +
+                       "<p>Just respond quickly with your initial gut response.</p>" +
+                       "<p>After you respond, the fixation cross for the next trial will appear within a few seconds. There will be 24 trials total.</p>" +
+                       "<p>(Press SPACE to continue reading instructions)</p>"
+                       }
+                       ]
+        }
+	    timeline.push(instructions);
+
+	    /* test trials */
+        
+        var go_fullscreen = {
+            type: 'fullscreen',
+            fullscreen_mode: true,
+            message: "<p>Click continue when you're ready to begin the experiment.</p>"
+        }
+        timeline.push(go_fullscreen);
+
+		var procedure = {
+		    timeline: [
+                       {
+                       type: 'html-keyboard-response',
+                       stimulus: '<div style="font-size:60px;">+</div>' + '<br>(Press SPACE to begin trial)',
+                       choices: ' ',
+                       response_ends_trial: true
+                       },
+                       {
+                       type: 'image-keyboard-response', /*THIS WILL BE THE PRIME*/
+                       stimulus: 'stim/neutralprime.bmp',
+                       choices: jsPsych.NO_KEYS,
+                       trial_duration: 25,
+                       },
+                       {
+                       type: 'image-keyboard-response', /*THIS WILL BE THE mask*/
+                       stimulus: 'stim/mask1.bmp',
+                       choices: jsPsych.NO_KEYS,
+                       trial_duration: 300,
+                       },
+                       {
+                       type: 'audio-keyboard-response', /*THIS WILL BE THE tritone stimuli*/
+                       stimulus: jsPsych.timelineVariable('stimulus'),
+                       choices: ['f', 'j'],
+                       prompt: "What did you hear?" + "<br> F = descending" + "<br> J = ascending",
+                       response_ends_trial: true,
+                       data: {correct_response: 'j', test_part: 'neutral'},
+                       on_finish: function(data){
+                       data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);}
+                       },
+                       {
+                       type: 'html-keyboard-response',
+                       stimulus: " ",
+                       choices: jsPsych.NO_KEYS,
+                       trial_duration: 2000,
+                       }
+		    ],
+            timeline_variables: [
+                                 { stimulus: 'stim/A-D.wav' },
+                                 { stimulus: 'stim/A-E.wav' },
+                                 { stimulus: 'stim/B-F.wav' },
+                                 { stimulus: 'stim/C-F.wav' },
+                                 { stimulus: 'stim/C-G.wav' },
+                                 { stimulus: 'stim/D-G.wav' },
+                                 { stimulus: 'stim/D-A.wav' },
+                                 { stimulus: 'stim/E-A.wav' },
+                                 { stimulus: 'stim/F-B.wav' },
+                                 { stimulus: 'stim/F-C.wav' },
+                                 { stimulus: 'stim/G-C.wav' },
+                                 { stimulus: 'stim/G-D.wav' }
+                                 ],
+            randomize_order: true
+		}
+		timeline.push(procedure);
+		
+		var procedurepart2 = {
+            timeline: [
+                       {
+                       type: 'html-keyboard-response',
+                       stimulus: '<div style="font-size:60px;">+</div>' + '<br>(Press SPACE to begin trial)',
+                       choices: ' ',
+                       response_ends_trial: true
+                       },
+                       {
+                       type: 'image-keyboard-response', /*THIS WILL BE THE PRIME*/
+                       stimulus: 'stim/D-prime.bmp',
+                       choices: jsPsych.NO_KEYS,
+                       trial_duration: 25,
+                       },
+                       {
+                       type: 'image-keyboard-response', /*THIS WILL BE THE mask*/
+                       stimulus: 'stim/mask1.bmp',
+                       choices: jsPsych.NO_KEYS,
+                       trial_duration: 300,
+                       },
+                       {
+                       type: 'audio-keyboard-response', /*THIS WILL BE THE tritone stimuli*/
+                       stimulus: jsPsych.timelineVariable('stimulus'),
+                       choices: ['j', 'f'],
+                       prompt: "What did you hear?" + "<br> F = descending" + "<br> J = ascending",
+                       response_ends_trial: true,
+                       data: {correct_response: 'j', test_part: 'meaningful'},
+                       on_finish: function(data){
+                       data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);}
+                       },
+                       {
+                       type: 'html-keyboard-response',
+                       stimulus: " ",
+                       choices: jsPsych.NO_KEYS,
+                       trial_duration: 2000,
+                       }
+                       ],
+            timeline_variables: [
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/A-D.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/A-E.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/B-F.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/C-F.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/C-G.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/D-G.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/D-A.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/E-A.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/F-B.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/F-C.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/G-C.wav' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/G-D.wav' }
+                                 ],
+            randomize_order: true
+		}
+		timeline.push(procedurepart2);
+
+	    var controlinstruct = {
+	    	timeline: [
+	    		{
+	      			type: "html-keyboard-response",
+	      			stimulus: "END OF PART 1. <br><br> Press SPACE to continue."
+	      	    },
+	    		{
+	      			type: "html-keyboard-response",
+	      			stimulus: "INSTRUCTIONS: PART 2 <br><br>You will now see 24 more trials just as in Part 1. Only this time, on some trials, you might see a picture of two music notes appear very briefly on the screen, right before the flickering blobs. The music notes will be on a music staff, and may either be oriented in an ascending direction (from low to high) or descending direction (high to low). <br> <br>Your task is to identify on each trial whether you saw ascending music notes (press J key), descending music notes (press F key), or no music notes (press N key). <br><br>You'll still HEAR the music notes as well, but please respond now based only on what you SEE (if anything). <br><br> When you are ready, press SPACE to begin Part 2."
+	      	    }
+	      	    ]
+	      	  }
+		timeline.push(controlinstruct);
+		
+		var control = {
+            timeline: [
+                       {
+                       type: 'html-keyboard-response',
+                       stimulus: '<div style="font-size:60px;">+</div>' + '<br>(Press SPACE to begin trial)',
+                       choices: ' ',
+                       response_ends_trial: true
+                       },
+                       {
+                       type: 'image-keyboard-response', /*THIS WILL BE THE PRIME*/
+                       stimulus: jsPsych.timelineVariable('prime'),
+                       choices: jsPsych.NO_KEYS,
+                       trial_duration: 25,
+                       },
+                       {
+                       type: 'image-keyboard-response', /*THIS WILL BE THE mask*/
+                       stimulus: 'stim/mask1.bmp',
+                       choices: jsPsych.NO_KEYS,
+                       trial_duration: 300,
+                       },
+                       {
+                       type: 'audio-keyboard-response', /*THIS WILL BE THE tritone stimuli*/
+                       stimulus: jsPsych.timelineVariable('stimulus'),
+                       choices: ['j', 'f', 'n'],
+                       prompt: "What did you see?" + "<br> F = descending" + "<br> J = ascending" + "<br> N = no music notes",
+                       response_ends_trial: true,
+                       data: {correct_response: jsPsych.timelineVariable('corr'), test_part: 'control'},
+                       on_finish: function(data){
+                       data.correct = data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode(data.correct_response);}
+                       },
+                       {
+                       type: 'html-keyboard-response',
+                       stimulus: " ",
+                       choices: jsPsych.NO_KEYS,
+                       trial_duration: 2000,
+                       }
+                       ],
+            timeline_variables: [
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/A-D.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/A-E.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/B-F.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/C-F.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/C-G.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/D-G.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/D-A.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/E-A.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/F-B.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/F-C.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/G-C.wav', corr: 'j' },
+                                 { prime: 'stim/A-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/G-D.wav', corr: 'j' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/A-D.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/A-E.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/B-F.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/C-F.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/C-G.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/D-G.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/D-A.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/E-A.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/F-B.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/F-C.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/G-C.wav', corr: 'f' },
+                                 { prime: 'stim/D-prime.bmp', mask: 'stim/mask1.bmp', stimulus: 'stim/G-D.wav', corr: 'f' }
+                                 ],
+            randomize_order: true
+		}
+		timeline.push(control);
+        
+        // files for preload//
+        var audio = ['stim/A-D.wav', 'stim/A-E.wav', 'stim/B-F.wav', 'stim/C-F.wav', 'stim/C-G.wav', 'stim/D-G.wav', 'stim/D-A.wav', 'stim/E-A.wav', 'stim/F-B.wav', 'stim/F-C.wav', 'stim/G-C.wav', 'stim/G-D.wav']
+        var images = ['stim/mask1.bmp', 'stim/A-prime.bmp', 'stim/D-prime.bmp', 'stim/neutralprime.bmp']
+
+		
+	    /* define debrief */
+
+	    var debrief_block = {
+	     	timeline: [
+	    		{
+	      			type: "html-keyboard-response",
+	      			stimulus: "END OF PART 2. <br><br> Press SPACE to continue.",
+	      			choices: " ",
+	      			on_finish: function() {
+                        jsPsych.data.get().filter([{test_part: 'neutral'}, {test_part: 'meaningful'}, {test_part:'control'}]).localSave('csv', 'DataFile.csv');
+                        }
+	      	    },
+	    		{
+	      			type: "html-keyboard-response",
+	      			choices: " ",
+	      			stimulus: "Thank you for participating in this experiment! <br><br> Please click the link below to complete a quick questionnaire about this study (required in order to receive credit for your participation). In this questionnaire, you will be also be asked to upload the DataFile.csv file that was just downloaded to your computer. <br><br> <a href='https://forms.gle/wReBUrceUmkbweCA7'> CLICK HERE FOR QUESTIONNAIRE </a>"
+	      	    }
+	      		]
+	    }
+	    timeline.push(debrief_block);
+
+	    /* start the experiment */
+	    jsPsych.init({
+                     timeline: timeline,
+                     preload_audio: audio,
+                     preload_images: images,
+                     show_preload_progress_bar: false,
+                     use_webaudio: false
+	    });
+
+		
+	</script>
+
+
+</html>
